@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'candidates/css/apply_job.css' %}">
+
+<div class="apply-container">
+    <h2>Apply for: {{ job.title }}</h2>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Description:</strong> {{ job.description }}</p>
+
+    <hr>
+
+    <h3>Application Form</h3>
+    <p><em>Your application will be securely linked to your account ({{ user.username }})</em></p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Submit Application</button>
+        <a href="{% url 'candidates:all_jobs' %}" style="margin-left: 10px;">Cancel</a>
+    </form>
+
+    {% if success_message %}
+        <p class="success-message">{{ success_message }}</p>
+    {% endif %}
+</div>

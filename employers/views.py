@@ -4,8 +4,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+
 from .models import JobPost
 from .forms import JobPostForm, RegisterForm
+
+from django.shortcuts import render
+from candidates.models import JobApplication
+
+
+
 
 
 # Employer Registration View
@@ -101,14 +108,27 @@ def delete_job(request, job_id):
 
 
 # View applications (placeholder)
-@login_required
+
+
+@login_required(login_url='employers:login')
 def view_applications(request, job_id):
+    """
+    Employer can view applications ONLY for a specific job they own
+    """
     job = get_object_or_404(JobPost, id=job_id, employer=request.user)
 
-    # Will be replaced when Candidate model is added
-    applications = []
+    applications = JobApplication.objects.filter(
+        job=job
+    ).select_related('job', 'user')
 
-    return render(request, 'employers/applications.html', {
-        'job': job,
-        'applications': applications
-    })
+    return render(
+        request,
+        'employers/application.html',
+        {
+            'job': job,
+            'applications': applications
+        }
+    )
+
+
+

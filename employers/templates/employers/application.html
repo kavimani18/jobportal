@@ -1,11 +1,57 @@
-<h2>Applications for: {{ job.title }}</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Applications</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
 
-{% if applications %}
+<h2>Applications for "{{ job.title }}"</h2>
+    <a href="{% url 'employer_dashboard' %}" class="back-btn">Back</a>
+
+<table>
+    <tr>
+        <th>Candidate Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Job Title</th>
+        <th>Resume</th>
+        <th>Applied At</th>
+    </tr>
+
     {% for app in applications %}
-        <p>{{ app.candidate_name }} - {{ app.resume }}</p>
+    <tr>
+        <td>{{ app.name }}</td>
+        <td>{{ app.email }}</td>
+        <td>{{ app.phone|default:"—" }}</td>
+        <td>{{ app.job.title }}</td>
+        <td>
+            <a href="{{ app.resume.url }}" download>
+             Download Resume
+            </a>
+        </td>
+        <td>{{ app.applied_at|date:"d M Y, h:i A" }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="6" style="text-align:center;">
+            No applications received yet.
+        </td>
+    </tr>
     {% endfor %}
-{% else %}
-    <p>No applications yet.</p>
-{% endif %}
+</table>
 
-<a href="{% url 'employer_dashboard' %}">Back</a>
+</body>
+</html>

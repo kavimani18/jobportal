@@ -137,3 +137,8 @@ LOGIN_REDIRECT_URL = 'employer_dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 
 
+LOGIN_URL = 'candidates:login'
+LOGIN_REDIRECT_URL = 'candidates:all_jobs'
+LOGOUT_REDIRECT_URL = 'candidates:login'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

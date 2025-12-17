@@ -1,0 +1,38 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'candidates/css/alljob.css' %}">
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 class="page-title" style="margin: 0;">Available Job Listings</h2>
+    <div>
+        {% if user.is_authenticated %}
+            <span style="margin-right: 10px;">Welcome, {{ user.username }}!</span>
+            <a href="{% url 'candidates:logout' %}" style="padding: 8px 16px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px;">Logout</a>
+        {% else %}
+            <a href="{% url 'candidates:login' %}" style="padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">Login</a>
+            <a href="{% url 'candidates:register' %}" style="padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">Register</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="job-list">
+    {% for job in jobs %}
+        <div class="job-card">
+            <h3 class="job-title">{{ job.title }}</h3>
+            <p class="job-description">{{ job.description|truncatechars:150 }}</p>
+            <p class="job-location"><strong>Location:</strong> {{ job.location }}</p>
+
+            <!-- Apply button - different for logged in vs logged out users -->
+            {% if user.is_authenticated %}
+                <a href="{% url 'candidates:apply_job' job.id %}" class="apply-button">
+                    Apply Now
+                </a>
+            {% else %}
+                <a href="{% url 'candidates:login' %}?next={% url 'candidates:apply_job' job.id %}" class="apply-button" style="background-color: #6c757d;">
+                    Login to Apply
+                </a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p class="no-jobs">No jobs available.</p>
+    {% endfor %}
+</div>
