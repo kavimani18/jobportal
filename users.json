@@ -88,5 +88,23 @@
     "groups": [],
     "user_permissions": []
   }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$MM2EcWZB9erbb30cth6hAj$JWjnRqoEgEAKiJ7ErZhY9Qb+7RPZT6UitzYiS/niYyk=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-18T11:42:49.889Z",
+    "groups": [],
+    "user_permissions": []
+  }
 }
 ]
