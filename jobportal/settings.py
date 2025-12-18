@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$bvop5%91nyqan@r+i8_&x5e8@nln)xv8481thu1rhlhtx2c^i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.onrender.com']
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'jobportal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
